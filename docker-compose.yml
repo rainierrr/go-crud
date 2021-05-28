@@ -7,5 +7,17 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./go:/go
+      - ./back_end:/go
     command: sh -c "go run main.go"
+  db:
+    container_name: go-db
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: go_db
+      MYSQL_USER: go
+      MYSQL_PASSWORD: go
+      TZ: 'Asia/Tokyo'
+    volumes:
+    - ./db_data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
