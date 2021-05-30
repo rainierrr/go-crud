@@ -2,7 +2,8 @@ package main
 
 import (
 	"net/http"
-
+	"github.com/jinzhu/gorm"
+	"github.com/go-sql-driver/mysql"
 	"github.com/gin-gonic/gin"
 )
 

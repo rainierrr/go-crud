@@ -1,13 +1,16 @@
 version: '3.7'
 services:
   app:
-    build: .
+    build:
+      context: back_end/
+      dockerfile: ./Dockerfile
     container_name: go-crud
     tty: true
     ports:
       - "8080:8080"
     volumes:
-      - ./back_end:/go
+      - ./back_end/code:/code
+      - ./back_end/mod:/go/pkg/mod
     command: sh -c "go run main.go"
   db:
     container_name: go-db
