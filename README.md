@@ -6,14 +6,19 @@
 ```
 docker-compose build
 ```
-3. コンテナ作成
+3. パッケージインストール
+```
+docker-compose run --rm app make install
+```
+
+4. コンテナ作成
 ```
 docker-compose up -d
 ```
-4. コンテナの起動確認
+5. コンテナの起動確認
 ```
 docker-compose ps
 ```
 
-5. サイトにアクセス
+6. サイトにアクセス
 localhost:8080にアクセスしてください。

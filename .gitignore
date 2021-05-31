@@ -1,3 +1,7 @@
+# app
+/back_end/go
+tmp
 go.sum
+
+# db
 /db_data
-/back_end/mod

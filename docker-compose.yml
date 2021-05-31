@@ -10,8 +10,9 @@ services:
       - "8080:8080"
     volumes:
       - ./back_end/code:/code
-      - ./back_end/mod:/go/pkg/mod
-    command: sh -c "go run main.go"
+      - ./back_end/go:/go
+      - ./back_end/build:/build
+    command: sh -c "air"
   db:
     container_name: go-db
     image: mysql:8.0
