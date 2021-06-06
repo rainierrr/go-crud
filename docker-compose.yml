@@ -12,6 +12,8 @@ services:
       - ./back_end/code:/code
       - ./back_end/go:/go
       - ./back_end/build:/build
+    depends_on:
+      - "db"
     command: sh -c "air"
   db:
     container_name: go-db
