@@ -1,4 +1,4 @@
-module example.com/mod
+module github.com/rainierrr/go-crud
 
 go 1.16
 

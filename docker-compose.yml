@@ -9,9 +9,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./back_end/code:/code
-      - ./back_end/go:/go
-      - ./back_end/build:/build
+      - ./back_end/src:/src
     depends_on:
       - "db"
     command: sh -c "air"
