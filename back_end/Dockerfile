@@ -1,9 +1,9 @@
 FROM golang:1.16-alpine
-WORKDIR /go/src/
+WORKDIR /src
 
 
-COPY go/src/go.mod ./go.mod
-COPY go/src/go.sum ./go.sum
+COPY src/go.mod ./go.mod
+COPY src/go.sum ./go.sum
 
 RUN apk update \
   && apk add --no-cache git make \

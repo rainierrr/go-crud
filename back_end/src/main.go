@@ -11,6 +11,6 @@ import (
 func main() {
 	db := server.DbConnect()
 	defer db.Close()
-	engine := server.GetRouter()
-	engine.Run(":8080")
+	r := server.GetRouter()
+	r.Run(":8080")
 }

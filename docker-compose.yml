@@ -10,6 +10,7 @@ services:
       - "8080:8080"
     volumes:
       - ./back_end/src:/src
+      - ./back_end/go:/go
     depends_on:
       - "db"
     command: sh -c "air"
