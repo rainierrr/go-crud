@@ -1,9 +1,9 @@
-package entries
+package models
 
 import (
 	"github.com/jinzhu/gorm"
 )
 
-func AutoMigrate(db *gorm.DB){
+func AutoMigrate(db *gorm.DB) {
 	db.AutoMigrate(&Task{})
 }

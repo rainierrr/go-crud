@@ -1,11 +1,14 @@
 package controllers
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-func Tasks (c *gin.Context) {
+type UserController struct{}
+
+func (_ UserController) Index(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"tasks": "test1",
 	})

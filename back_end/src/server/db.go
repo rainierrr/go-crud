@@ -1,19 +1,39 @@
 package server
 
-import "github.com/jinzhu/gorm"
+import (
+	"fmt"
 
-func DbConnect() *gorm.DB {
-  DBMS     := "mysql"
-  USER     := "go"
-  PASS     := "go"
-  PROTOCOL := "tcp(db:3306)"
-  DBNAME   := "go_db"
+	"github.com/jinzhu/gorm"
+)
 
-  CONNECT := USER+":"+PASS+"@"+PROTOCOL+"/"+DBNAME
-  db,err := gorm.Open(DBMS, CONNECT)
+var (
+	db  *gorm.DB
+	err error
+)
 
-  if err != nil {
-    panic(err.Error())
-  }
-  return db
+func DBConnect() *gorm.DB {
+	DBMS := "mysql"
+	USER := "go"
+	PASS := "go"
+	PROTOCOL := "tcp(db:3306)"
+	DBNAME := "go_db"
+
+	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+	db, err = gorm.Open(DBMS, CONNECT)
+
+	if err != nil {
+		panic(err.Error())
+	}
+	return db
+}
+
+func GetDB() *gorm.DB {
+	return db
+}
+
+func DBClose() {
+	if err := db.Close(); err != nil {
+		fmt.Println("test")
+		panic(err.Error())
+	}
 }

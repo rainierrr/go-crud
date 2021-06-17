@@ -1,12 +1,20 @@
 package server
 
-import 	(
-	"github.com/rainierrr/go-crud/controllers"
+import (
 	"github.com/gin-gonic/gin"
+	"github.com/rainierrr/go-crud/controllers"
 )
 
-func GetRouter() *gin.Engine{
+func router() *gin.Engine {
 	r := gin.Default()
-	r.GET("/", controllers.Tasks)
+	u := r.Group("/tasks")
+	{
+		ctrl := controllers.UserController{}
+		u.GET("", ctrl.Index)
+		//u.POST("", ctrl.Create)
+		//u.GET("/:id", ctrl.Show)
+		//u.PUT("/:id", ctrl.Update)
+		//u.DELETE("/:id", ctrl.Delete)
+	}
 	return r
 }
