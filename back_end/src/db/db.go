@@ -1,15 +1,19 @@
-package server
+package db
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
+	"github.com/rainierrr/go-crud/entries"
 )
 
 var (
 	db  *gorm.DB
 	err error
 )
+
+func Init() {
+	DBConnect()
+	entries.AutoMigrate(db)
+}
 
 func DBConnect() *gorm.DB {
 	DBMS := "mysql"
@@ -31,9 +35,8 @@ func GetDB() *gorm.DB {
 	return db
 }
 
-func DBClose() {
+func Close() {
 	if err := db.Close(); err != nil {
-		fmt.Println("test")
 		panic(err.Error())
 	}
 }
