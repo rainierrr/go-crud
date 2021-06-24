@@ -1,9 +1,11 @@
 package entries
 
-import "gorm.io/gorm"
+import "time"
 
 type Task struct {
-	gorm.Model
-	Name     string `json:"name"`
-	Category string `json:"category"`
+	ID        string    `json:"id"`
+	Name      string    `json:"name"`
+	Category  string    `json:"category"`
+	CreatedAt time.Time `json:"create_at"`
+	UpdatedAt time.Time `json:"update_at"`
 }
