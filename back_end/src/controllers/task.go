@@ -12,20 +12,26 @@ type UserController struct{}
 
 func (_ UserController) Index(c *gin.Context) {
 	var model = models.UserModel{}
-	var p, _ = model.GetAll()
-	c.JSON(http.StatusOK, gin.H{
-		"tasks": p,
-	})
+	var tasks, err = model.GetAll()
+	if err != nil {
+		c.AbortWithStatus(400)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"tasks": tasks,
+		})
+	}
+
 }
 
 func (_ UserController) Create(c *gin.Context) {
 	var model = models.UserModel{}
-	p, err := model.CreateModel(c)
+	task, err := model.CreateModel(c)
 
 	if err != nil {
 		c.AbortWithStatus(400)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	} else {
-		c.JSON(201, p)
+		c.JSON(201, task)
 	}
 }

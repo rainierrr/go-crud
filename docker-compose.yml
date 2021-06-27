@@ -13,15 +13,13 @@ services:
       - ./back_end/go:/go
     depends_on:
       - "db"
+    env_file: ./.env
     command: sh -c "air"
   db:
     container_name: go-db
     image: mysql:8.0
+    env_file: ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: go_db
-      MYSQL_USER: go
-      MYSQL_PASSWORD: go
       TZ: 'Asia/Tokyo'
     volumes:
     - ./db_data:/var/lib/mysql

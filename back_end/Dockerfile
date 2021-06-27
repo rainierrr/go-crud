@@ -6,5 +6,5 @@ COPY src/go.mod ./go.mod
 COPY src/go.sum ./go.sum
 
 RUN apk update \
-  && apk add --no-cache git make \
+  && apk add --no-cache git make musl-dev \
   && go mod download

@@ -1,0 +1,5 @@
+development:
+  dialect: mysql  #使用するRDBMS
+  datasource: root:${MYSQL_ROOT_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/${MYSQL_DATABASE}?parseTime=true
+  dir: ./db/migrations  #マイグレーションファイルを作成するディレクトリ
+  table: migrations  #マイグレーション履歴を保存するテーブル名

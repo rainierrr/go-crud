@@ -1,21 +1,19 @@
 package db
 
 import (
-	"github.com/jinzhu/gorm"
-	"github.com/rainierrr/go-crud/entries"
+	"github.com/jmoiron/sqlx"
 )
 
 var (
-	db  *gorm.DB
+	db  *sqlx.DB
 	err error
 )
 
 func Init() {
 	DBConnect()
-	entries.AutoMigrate(db)
 }
 
-func DBConnect() *gorm.DB {
+func DBConnect() *sqlx.DB {
 	DBMS := "mysql"
 	USER := "go"
 	PASS := "go"
@@ -23,7 +21,7 @@ func DBConnect() *gorm.DB {
 	DBNAME := "go_db"
 
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true"
-	db, err = gorm.Open(DBMS, CONNECT)
+	db, err = sqlx.Connect(DBMS, CONNECT)
 
 	if err != nil {
 		panic(err.Error())
@@ -31,7 +29,7 @@ func DBConnect() *gorm.DB {
 	return db
 }
 
-func GetDB() *gorm.DB {
+func GetDB() *sqlx.DB {
 	return db
 }
 
