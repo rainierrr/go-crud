@@ -21,8 +21,7 @@ func (_ UserModel) GetAll() ([]entries.Task, error) {
 	}
 
 	for rows.Next() {
-		err := rows.StructScan(&nullAbleTask)
-		if err != nil {
+		if err := rows.StructScan(&nullAbleTask); err != nil {
 			return nil, err
 		}
 		task = entries.Task{
@@ -55,5 +54,27 @@ func (_ UserModel) CreateModel(c *gin.Context) (entries.Task, error) {
 	if _, err := db.Exec("insert into tasks (id, name, category, explanation) values(?,?,?,?)", task.ID, task.Name, task.Category, task.Explanation); err != nil {
 		return task, err
 	}
+	return task, nil
+}
+
+func (_ UserModel) UpdateModel(c *gin.Context) (entries.Task, error) {
+	db := db.GetDB()
+	task := entries.Task{}
+	id := c.Param("id")
+
+	if err := c.BindJSON(&task); err != nil {
+		return task, err
+	}
+
+	query := "UPDATE tasks SET name=?, category=?, explanation=? WHERE id = ?"
+
+	if _, err := db.Exec(query, task.Name, task.Category, task.Explanation, id); err != nil {
+		return task, err
+	}
+
+	if err := db.Get(&task, "SELECT * FROM tasks where id = ?", id); err != nil {
+		return task, err
+	}
+
 	return task, nil
 }

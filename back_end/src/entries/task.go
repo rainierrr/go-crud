@@ -18,7 +18,7 @@ type NullableTask struct {
 
 type Task struct {
 	ID          uuid.UUID `json:"id"`
-	Name        string    `json:"name"`
+	Name        string    `json:"name" query:"name"`
 	Category    string    `json:"category"`
 	Explanation string    `json:"explanation"`
 	CreatedAt   time.Time `json:"created_at" db:"created_at"`
