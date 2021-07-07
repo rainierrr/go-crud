@@ -18,7 +18,7 @@ func router() *gin.Engine {
 		u.GET("", ctrl.Index)
 		u.POST("", ctrl.Create)
 		u.PATCH("/:id", ctrl.Update)
-		//u.DELETE("/:id", ctrl.Delete)
+		u.DELETE("/:id", ctrl.Delete)
 	}
 	return r
 }

@@ -47,3 +47,14 @@ func (_ UserController) Update(c *gin.Context) {
 		c.JSON(201, task)
 	}
 }
+
+func (_ UserController) Delete(c *gin.Context) {
+	var model = models.UserModel{}
+
+	if err := model.DeleteModel(c); err != nil {
+		c.AbortWithStatus(400)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		c.Status(200)
+	}
+}

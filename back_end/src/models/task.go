@@ -78,3 +78,15 @@ func (_ UserModel) UpdateModel(c *gin.Context) (entries.Task, error) {
 
 	return task, nil
 }
+
+func (_ UserModel) DeleteModel(c *gin.Context) error {
+	db := db.GetDB()
+	id := c.Param("id")
+
+	query := "DELETE FROM tasks WHERE id = ?"
+	if _, err := db.Exec(query, id); err != nil {
+		return err
+	}
+
+	return nil
+}
