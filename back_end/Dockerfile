@@ -3,8 +3,7 @@ WORKDIR /src
 
 
 COPY src/go.mod ./go.mod
-COPY src/go.sum ./go.sum
 
 RUN apk update \
-  && apk add --no-cache git make musl-dev \
+  && apk add --no-cache git make musl-dev gcc \
   && go mod download
