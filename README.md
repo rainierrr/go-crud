@@ -1,7 +1,8 @@
 # go-crud
 ## 環境構築方法
 1. Dockerとdocker-composeのインストール
-
+- [Docker のインストール(公式ドキュメント)](https://docs.docker.jp/engine/installation/index.html)
+- [Docker Compose のインストール(公式ドキュメント)](https://docs.docker.jp/compose/install.html)
 2. イメージビルド
 ```
 docker-compose build
@@ -10,7 +11,10 @@ docker-compose build
 ```
 docker-compose run --rm app make install
 ```
-
+4. migration
+```
+docker-compose run --rm app sql-migrate up
+```
 4. コンテナ作成
 ```
 docker-compose up -d
