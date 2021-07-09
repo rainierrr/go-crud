@@ -7,20 +7,22 @@ import (
 	"github.com/google/uuid"
 )
 
-type NullableTask struct {
+type NullAbleTask struct {
 	ID          uuid.UUID      `json:"id"`
-	Name        string         `json:"name"`
-	Category    sql.NullString `json:"category"`
+	Title       string         `json:"title"`
 	Explanation sql.NullString `json:"explanation"`
+	Complete    bool           `json:"complete"`
+	Due_date    sql.NullTime   `json:"due_date"`
 	CreatedAt   time.Time      `json:"created_at" db:"created_at"`
 	UpdatedAt   time.Time      `json:"updated_at" db:"updated_at"`
 }
 
 type Task struct {
 	ID          uuid.UUID `json:"id"`
-	Name        string    `json:"name" query:"name"`
-	Category    string    `json:"category"`
+	Title       string    `json:"title" query:"title"`
 	Explanation string    `json:"explanation"`
+	Complete    bool      `json:"complete"`
+	Due_date    time.Time `json:"due_date"`
 	CreatedAt   time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at" db:"updated_at"`
 }

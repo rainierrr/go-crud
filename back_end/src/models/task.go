@@ -1,6 +1,8 @@
 package models
 
 import (
+	"log"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/rainierrr/go-crud/db"
@@ -9,11 +11,11 @@ import (
 
 type UserModel struct{}
 
-func (_ UserModel) GetAll() ([]entries.Task, error) {
+func (model UserModel) GetAll() ([]entries.Task, error) {
 	db := db.GetDB()
 	var task entries.Task
 	var tasks []entries.Task
-	var nullAbleTask entries.NullableTask
+	var nullAbleTask entries.NullAbleTask
 	rows, err := db.Queryx("SELECT * FROM tasks")
 
 	if err != nil {
@@ -26,9 +28,10 @@ func (_ UserModel) GetAll() ([]entries.Task, error) {
 		}
 		task = entries.Task{
 			ID:          nullAbleTask.ID,
-			Name:        nullAbleTask.Name,
-			Category:    nullAbleTask.Category.String,
+			Title:       nullAbleTask.Title,
+			Complete:    nullAbleTask.Complete,
 			Explanation: nullAbleTask.Explanation.String,
+			Due_date:    nullAbleTask.Due_date.Time,
 			CreatedAt:   nullAbleTask.CreatedAt,
 			UpdatedAt:   nullAbleTask.UpdatedAt,
 		}
@@ -38,7 +41,7 @@ func (_ UserModel) GetAll() ([]entries.Task, error) {
 	return tasks, nil
 }
 
-func (_ UserModel) CreateModel(c *gin.Context) (entries.Task, error) {
+func (model UserModel) CreateModel(c *gin.Context) (entries.Task, error) {
 	db := db.GetDB()
 	task := entries.Task{}
 	uuid, err := uuid.NewRandom()
@@ -51,35 +54,46 @@ func (_ UserModel) CreateModel(c *gin.Context) (entries.Task, error) {
 		return task, err
 	}
 
-	if _, err := db.Exec("insert into tasks (id, name, category, explanation) values(?,?,?,?)", task.ID, task.Name, task.Category, task.Explanation); err != nil {
+	if _, err := db.Exec("insert into tasks (id, title, explanation) values(?,?,?)", task.ID, task.Title, task.Explanation); err != nil {
 		return task, err
 	}
 	return task, nil
 }
 
-func (_ UserModel) UpdateModel(c *gin.Context) (entries.Task, error) {
+func (model UserModel) UpdateModel(c *gin.Context) (entries.Task, error) {
 	db := db.GetDB()
 	task := entries.Task{}
+	nullAbleTask := entries.NullAbleTask{}
 	id := c.Param("id")
 
 	if err := c.BindJSON(&task); err != nil {
 		return task, err
 	}
 
-	query := "UPDATE tasks SET name=?, category=?, explanation=? WHERE id = ?"
+	query := "UPDATE tasks SET title=?, complete=?, explanation=? WHERE id = ?"
 
-	if _, err := db.Exec(query, task.Name, task.Category, task.Explanation, id); err != nil {
+	if _, err := db.Exec(query, task.Title, task.Complete, task.Explanation, id); err != nil {
 		return task, err
 	}
 
-	if err := db.Get(&task, "SELECT * FROM tasks where id = ?", id); err != nil {
+	if err := db.Get(&nullAbleTask, "SELECT * FROM tasks where id = ?", id); err != nil {
+		log.Println(err.Error())
 		return task, err
 	}
 
+	task = entries.Task{
+		ID:          nullAbleTask.ID,
+		Title:       nullAbleTask.Title,
+		Complete:    nullAbleTask.Complete,
+		Explanation: nullAbleTask.Explanation.String,
+		Due_date:    nullAbleTask.Due_date.Time,
+		CreatedAt:   nullAbleTask.CreatedAt,
+		UpdatedAt:   nullAbleTask.UpdatedAt,
+	}
 	return task, nil
 }
 
-func (_ UserModel) DeleteModel(c *gin.Context) error {
+func (model UserModel) DeleteModel(c *gin.Context) error {
 	db := db.GetDB()
 	id := c.Param("id")
 
