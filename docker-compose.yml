@@ -1,16 +1,27 @@
 version: '3.7'
 services:
-  app:
+  node:
+    container_name: go-crud-node
     build:
-      context: back_end/
+      context: front/
       dockerfile: ./Dockerfile
-    container_name: go-crud
+    volumes:
+      - ./front:/usr/src/app
+    command: sh -c "yarn start"
+    ports:
+     - "3030:3000"
+    stdin_open: true
+  app:
+    container_name: go-crud-app
+    build:
+      context: app/
+      dockerfile: ./Dockerfile
     tty: true
     ports:
       - "8080:8080"
     volumes:
-      - ./back_end/src:/src
-      - ./back_end/go:/go
+      - ./app/src:/src
+      - ./app/go:/go
     depends_on:
       - "db"
     env_file: ./.env

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# node
+docker-compose run --rm node yarn exec lint-staged

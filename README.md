@@ -10,6 +10,7 @@ docker-compose build
 3. パッケージインストール
 ```
 docker-compose run --rm app make install
+docker-compose run --rm node yarn install
 ```
 4. migration
 ```
@@ -26,3 +27,8 @@ docker-compose ps
 
 6. サイトにアクセス
 localhost:8080にアクセスしてください。
+
+開発用の設定
+```
+git config --local core.hooksPath .githooks
+```
