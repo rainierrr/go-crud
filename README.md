@@ -28,7 +28,13 @@ docker-compose ps
 6. サイトにアクセス
 localhost:8080にアクセスしてください。
 
-開発用の設定
+## 開発用の設定
 ```
 git config --local core.hooksPath .githooks
+```
+settings.json(vscode)
+```
+{
+    "eslint.workingDirectories": [ "./front" ]
+}
 ```
