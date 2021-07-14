@@ -10,3 +10,5 @@ go.sum
 # git 共有するpre-commit以外はgitの管理から外す
 .githooks/*
 !/.githooks/pre-commit
+
+.vscode
