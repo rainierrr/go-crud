@@ -1,6 +1,7 @@
 import * as React from "react";
-import Header from "./Header"
+import BackToTop from "./BackToTop";
 
-const App: React.FC<unknown> = () => <Header />
+// eslint-disable-next-line react/no-children-prop
+const App: React.FC<unknown> = () => <BackToTop />
 
 export default App
