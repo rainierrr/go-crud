@@ -6,7 +6,8 @@ services:
       context: front/
       dockerfile: ./Dockerfile
     volumes:
-      - ./front:/usr/src/app
+      - ./front:/usr/src/front
+      - ./.git:/usr/src/front/.git
     command: sh -c "yarn start"
     ports:
      - "3030:3000"
